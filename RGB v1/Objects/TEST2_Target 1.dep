@@ -1,81 +1,0 @@
-Dependencies for Project 'TEST2', Target 'Target 1': (DO NOT MODIFY !)
-CompilerVersion: 5060750::V5.06 update 6 (build 750)::ARMCC
-F (.\App.c)(0x648E5695)(--c99 --gnu -c --cpu Cortex-M4.fp.sp -D__EVAL -g -O0 --apcs=interwork --split_sections-I.\RTE\_Target_1-IC:\Users\Zerconium\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include-IC:\Users\Zerconium\AppData\Local\Arm\Packs\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123-D__UVISION_VERSION="529" -D_RTE_ -DTM4C123GH6PM-o .\objects\app.o --omf_browse .\objects\app.crf --depend .\objects\app.d)
-I (App.h)(0x648B9181)
-I (Std_Types.h)(0x648BA2CF)
-I (Led.h)(0x648B91E8)
-I (Dio.h)(0x648B9182)
-I (Dio_Cfg.h)(0x648B8FA6)
-I (Dio_Types.h)(0x648B8E90)
-I (Port_Types.h)(0x648D9FC8)
-I (Button.h)(0x648B9180)
-I (Port.h)(0x648E5695)
-I (Port_Cfg.h)(0x648B83A6)
-F (.\App.h)(0x648B9181)()
-F (.\Button.c)(0x648B9180)(--c99 --gnu -c --cpu Cortex-M4.fp.sp -D__EVAL -g -O0 --apcs=interwork --split_sections-I.\RTE\_Target_1-IC:\Users\Zerconium\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include-IC:\Users\Zerconium\AppData\Local\Arm\Packs\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123-D__UVISION_VERSION="529" -D_RTE_ -DTM4C123GH6PM-o .\objects\button.o --omf_browse .\objects\button.crf --depend .\objects\button.d)
-I (Std_Types.h)(0x648BA2CF)
-I (Button.h)(0x648B9180)
-I (Port.h)(0x648E5695)
-I (Port_Types.h)(0x648D9FC8)
-I (Port_Cfg.h)(0x648B83A6)
-I (Dio.h)(0x648B9182)
-I (Dio_Cfg.h)(0x648B8FA6)
-I (Dio_Types.h)(0x648B8E90)
-F (.\Button.h)(0x648B9180)()
-F (.\Dio.c)(0x648B917F)(--c99 --gnu -c --cpu Cortex-M4.fp.sp -D__EVAL -g -O0 --apcs=interwork --split_sections-I.\RTE\_Target_1-IC:\Users\Zerconium\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include-IC:\Users\Zerconium\AppData\Local\Arm\Packs\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123-D__UVISION_VERSION="529" -D_RTE_ -DTM4C123GH6PM-o .\objects\dio.o --omf_browse .\objects\dio.crf --depend .\objects\dio.d)
-I (Std_Types.h)(0x648BA2CF)
-I (Dio.h)(0x648B9182)
-I (Dio_Cfg.h)(0x648B8FA6)
-I (Dio_Types.h)(0x648B8E90)
-I (Port_Types.h)(0x648D9FC8)
-I (Dio_regs.h)(0x648B4439)
-I (Port_regs.h)(0x648DEAFA)
-I (Macros.h)(0x648B9CEE)
-F (.\Dio.h)(0x648B9182)()
-F (.\Dio_Cfg.h)(0x648B8FA6)()
-F (.\Dio_Lcfg.c)(0x648B8FA6)(--c99 --gnu -c --cpu Cortex-M4.fp.sp -D__EVAL -g -O0 --apcs=interwork --split_sections-I.\RTE\_Target_1-IC:\Users\Zerconium\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include-IC:\Users\Zerconium\AppData\Local\Arm\Packs\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123-D__UVISION_VERSION="529" -D_RTE_ -DTM4C123GH6PM-o .\objects\dio_lcfg.o --omf_browse .\objects\dio_lcfg.crf --depend .\objects\dio_lcfg.d)
-I (Std_Types.h)(0x648BA2CF)
-I (Dio_Cfg.h)(0x648B8FA6)
-I (Dio_Types.h)(0x648B8E90)
-I (Port_Types.h)(0x648D9FC8)
-F (.\Dio_regs.h)(0x648B4439)()
-F (.\Dio_Types.h)(0x648B8E90)()
-F (.\Led.c)(0x648B91E8)(--c99 --gnu -c --cpu Cortex-M4.fp.sp -D__EVAL -g -O0 --apcs=interwork --split_sections-I.\RTE\_Target_1-IC:\Users\Zerconium\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include-IC:\Users\Zerconium\AppData\Local\Arm\Packs\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123-D__UVISION_VERSION="529" -D_RTE_ -DTM4C123GH6PM-o .\objects\led.o --omf_browse .\objects\led.crf --depend .\objects\led.d)
-I (Std_Types.h)(0x648BA2CF)
-I (Led.h)(0x648B91E8)
-I (Dio.h)(0x648B9182)
-I (Dio_Cfg.h)(0x648B8FA6)
-I (Dio_Types.h)(0x648B8E90)
-I (Port_Types.h)(0x648D9FC8)
-I (Port.h)(0x648E5695)
-I (Port_Cfg.h)(0x648B83A6)
-F (.\Led.h)(0x648B91E8)()
-F (.\Macros.h)(0x648B9CEE)()
-F (.\Port.c)(0x648E5695)(--c99 --gnu -c --cpu Cortex-M4.fp.sp -D__EVAL -g -O0 --apcs=interwork --split_sections-I.\RTE\_Target_1-IC:\Users\Zerconium\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include-IC:\Users\Zerconium\AppData\Local\Arm\Packs\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123-D__UVISION_VERSION="529" -D_RTE_ -DTM4C123GH6PM-o .\objects\port.o --omf_browse .\objects\port.crf --depend .\objects\port.d)
-I (Std_Types.h)(0x648BA2CF)
-I (Port.h)(0x648E5695)
-I (Port_Types.h)(0x648D9FC8)
-I (Port_Cfg.h)(0x648B83A6)
-I (Port_regs.h)(0x648DEAFA)
-I (Macros.h)(0x648B9CEE)
-I (Mcu_Hw.h)(0x648DA711)
-F (.\Port.h)(0x648E5695)()
-F (.\Port_Cfg.h)(0x648B83A6)()
-F (.\Port_Lcfg.c)(0x648D9FC8)(--c99 --gnu -c --cpu Cortex-M4.fp.sp -D__EVAL -g -O0 --apcs=interwork --split_sections-I.\RTE\_Target_1-IC:\Users\Zerconium\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include-IC:\Users\Zerconium\AppData\Local\Arm\Packs\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123-D__UVISION_VERSION="529" -D_RTE_ -DTM4C123GH6PM-o .\objects\port_lcfg.o --omf_browse .\objects\port_lcfg.crf --depend .\objects\port_lcfg.d)
-I (Std_Types.h)(0x648BA2CF)
-I (Port_Types.h)(0x648D9FC8)
-F (.\Port_regs.h)(0x648DEAFA)()
-F (.\Port_Types.h)(0x648D9FC8)()
-F (.\Std_Types.h)(0x648BA2CF)()
-F (.\Mcu_Hw.h)(0x648DA711)()
-F (RTE\Device\TM4C123GH6PM\startup_TM4C123.s)(0x51B6D5F6)(--cpu Cortex-M4.fp.sp --pd "__EVAL SETA 1" -g --apcs=interwork -I.\RTE\_Target_1-IC:\Users\Zerconium\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include-IC:\Users\Zerconium\AppData\Local\Arm\Packs\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123--pd "__UVISION_VERSION SETA 529" --pd "_RTE_ SETA 1" --pd "TM4C123GH6PM SETA 1"--list .\listings\startup_tm4c123.lst --xref -o .\objects\startup_tm4c123.o --depend .\objects\startup_tm4c123.d)
-F (RTE\Device\TM4C123GH6PM\system_TM4C123.c)(0x648E5738)(--c99 --gnu -c --cpu Cortex-M4.fp.sp -D__EVAL -g -O0 --apcs=interwork --split_sections-I.\RTE\_Target_1-IC:\Users\Zerconium\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include-IC:\Users\Zerconium\AppData\Local\Arm\Packs\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123-D__UVISION_VERSION="529" -D_RTE_ -DTM4C123GH6PM-o .\objects\system_tm4c123.o --omf_browse .\objects\system_tm4c123.crf --depend .\objects\system_tm4c123.d)
-I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5D9B1868)
-I (C:\Users\Zerconium\AppData\Local\Arm\Packs\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123\TM4C123.h)(0x530ED6D6)
-I (C:\Users\Zerconium\AppData\Local\Arm\Packs\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123\TM4C123GH6PM.h)(0x550FC60C)
-I (C:\Users\Zerconium\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\core_cm4.h)(0x5D25D706)
-I (C:\Users\Zerconium\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_version.h)(0x5D25D706)
-I (C:\Users\Zerconium\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_compiler.h)(0x5D25D706)
-I (C:\Users\Zerconium\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_armcc.h)(0x5D25D706)
-I (C:\Users\Zerconium\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\mpu_armv7.h)(0x5C8F9424)
-I (C:\Users\Zerconium\AppData\Local\Arm\Packs\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123\system_TM4C123.h)(0x51B6D5F6)

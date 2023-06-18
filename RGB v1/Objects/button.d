@@ -1,0 +1,9 @@
+.\objects\button.o: Button.c
+.\objects\button.o: Std_Types.h
+.\objects\button.o: Button.h
+.\objects\button.o: Port.h
+.\objects\button.o: Port_Types.h
+.\objects\button.o: Port_Cfg.h
+.\objects\button.o: Dio.h
+.\objects\button.o: Dio_Cfg.h
+.\objects\button.o: Dio_Types.h

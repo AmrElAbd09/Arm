@@ -1,0 +1,11 @@
+.\objects\app.o: App.c
+.\objects\app.o: App.h
+.\objects\app.o: Std_Types.h
+.\objects\app.o: Led.h
+.\objects\app.o: Dio.h
+.\objects\app.o: Dio_Cfg.h
+.\objects\app.o: Dio_Types.h
+.\objects\app.o: Port_Types.h
+.\objects\app.o: Button.h
+.\objects\app.o: Port.h
+.\objects\app.o: Port_Cfg.h

@@ -48,8 +48,8 @@ typedef enum {
 
 
 enuErrorStatus_t Systick_Init (void);
-enuErrorStatus_t Systick_SetIntervalSingle(uint32 u32Ticks);
-enuErrorStatus_t Systick_SetIntervalPeriodic(uint32 u32Ticks);
+enuErrorStatus_t Systick_SetIntervalSingle(uint32 a_u32Interval_ms);
+enuErrorStatus_t Systick_SetIntervalPeriodic(uint32 a_u32Interval_ms);
 enuErrorStatus_t Systick_StopInterval(void);
 enuErrorStatus_t Systick_GetElapsedTime(uint32* u32ElapsedTime);
 enuErrorStatus_t Systick_GetRemainingTime(uint32* u32RemainingTime);

@@ -28,11 +28,11 @@ enuErrorStatus_t Systick_Init (void)
 }
 
 
-enuErrorStatus_t Systick_SetIntervalSingle(uint32 u32Interval_ms)
+enuErrorStatus_t Systick_SetIntervalSingle(uint32 a_u32Interval_ms)
 {
 	enuErrorStatus_t enuErrorStatus = SYSTEM_ERROR;
 
-	uint32 u32Ticks = (F_CPU / (u32Interval_ms / MS_FREQ_CONVERT)) - FIRING_TICK;  
+	uint32 u32Ticks = (F_CPU / (a_u32Interval_ms / MS_FREQ_CONVERT)) - FIRING_TICK;  
 	
   SYSTICK_STRELOAD = u32Ticks;
 	SET_BIT(SYSTICK_STCTRL, STCTRL_ENABLE);
@@ -43,11 +43,11 @@ enuErrorStatus_t Systick_SetIntervalSingle(uint32 u32Interval_ms)
 }
 
 
-enuErrorStatus_t Systick_SetIntervalPeriodic(uint32 u32Interval_ms)
+enuErrorStatus_t Systick_SetIntervalPeriodic(uint32 a_u32Interval_ms)
 {
 	enuErrorStatus_t enuErrorStatus = SYSTEM_ERROR;
 
-	uint32 u32Ticks = (F_CPU / (u32Interval_ms / MS_FREQ_CONVERT)) - FIRING_TICK;
+	uint32 u32Ticks = (F_CPU / (a_u32Interval_ms / MS_FREQ_CONVERT)) - FIRING_TICK;
 	
 
 

@@ -10,7 +10,7 @@
 volatile uint8 u8LedCounter=1,flag=0;
 
 /**********************************************************************
- *  											LOCAL FUNCTIONS PROTOTYPES
+ *  											LOCAL FUNCTIONS PROTOTYPES 
  *********************************************************************/
 void App_SystickLogic(void);
 

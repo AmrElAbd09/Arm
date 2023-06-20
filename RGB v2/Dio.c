@@ -90,7 +90,7 @@ enuDioLevel_t Dio_ReadChannel(DioChannel_t ChannelId)
 * Return value: None
 * Description: Function for DIO write Channel API
 *******************************************************************************/
-void Dio_WriteChannel(DioChannel_t ChannelId, enuDioLevel_t Level)
+enuDioLevel_t Dio_WriteChannel(DioChannel_t ChannelId, enuDioLevel_t Level)
 {
 	/* Index Error */
 	if (ChannelId >= NUM_CONFIGURED_CHANNELS)
@@ -241,87 +241,6 @@ enuDioLevel_t Dio_ToggleChannel(DioChannel_t ChannelId)
 	}
 }
 
-/*******************************************************************************
-* Service Name: DioReadPort
-* Service ID[hex]: 0x00
-* Sync/Async: Synchronous
-* Reentrancy: Reentrant
-* Parameters (in): PortId - enuDioPort_t
-* Parameters (inout): None
-* Parameters (out): None
-* Return value: DioPortLevel_t
-* Description: Function for DIO read Port API
-*******************************************************************************/
-DioPortLevel_t DioReadPort(enuDioPort_t PortId)
-{	
-	switch (ConfigList.channels[PortId].portId)
-	{
-		case PORTA:
-			return (DioPortLevel_t)GPIO_PORTA_GPIODATA;
-			break;	/* Unreachable */
-			
-		case PORTB:
-			return (DioPortLevel_t)GPIO_PORTB_GPIODATA;
-			break;	/* Unreachable */
-			
-		case PORTC:
-			return (DioPortLevel_t)GPIO_PORTC_GPIODATA;
-			break;	/* Unreachable */
-			
-		case PORTD:
-			return (DioPortLevel_t)GPIO_PORTD_GPIODATA;
-			break;	/* Unreachable */
-			
-		case PORTE:
-			return (DioPortLevel_t)GPIO_PORTE_GPIODATA;
-			break;	/* Unreachable */
-			
-		case PORTF:
-			return (DioPortLevel_t)GPIO_PORTF_GPIODATA;
-			break;	/* Unreachable */
-	}
-}
-
-/*******************************************************************************
-* Service Name: DioWritePort
-* Service ID[hex]: 0x00
-* Sync/Async: Synchronous
-* Reentrancy: Reentrant
-* Parameters (in): PortId - enuDioPort_t, Level - DioPortLevel_t
-* Parameters (inout): None
-* Parameters (out): None
-* Return value: None
-* Description: Function for DIO write Port API
-*******************************************************************************/
-void DioWritePort(enuDioPort_t PortId, DioPortLevel_t Level)
-{	
-	switch (ConfigList.channels[PortId].portId)
-	{
-		case PORTA:
-			GPIO_PORTA_GPIODATA = Level;
-			break;	/* Unreachable */
-			
-		case PORTB:
-			GPIO_PORTB_GPIODATA = Level;
-			break;	/* Unreachable */
-			
-		case PORTC:
-			GPIO_PORTC_GPIODATA = Level;
-			break;	/* Unreachable */
-			
-		case PORTD:
-			GPIO_PORTD_GPIODATA = Level;
-			break;	/* Unreachable */
-			
-		case PORTE:
-			GPIO_PORTE_GPIODATA = Level;
-			break;	/* Unreachable */
-			
-		case PORTF:
-			GPIO_PORTF_GPIODATA = Level;
-			break;	/* Unreachable */
-	}
-}
 
 /**********************************************************************************************************************
  *  END OF FILE: Dio.c

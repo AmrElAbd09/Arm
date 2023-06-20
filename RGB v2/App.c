@@ -58,42 +58,43 @@ void App_SystickLogic(void)
 	} 
 	if (flag==1)
 		{
-			switch (u8LedCounter)
-			{ 
-				case 0 :
+			if(u8LedCounter == 0)
+			{
 				Led_TurnOff(LED_1); //all off at first 
 				Led_TurnOff(LED_2);
 				Led_TurnOff(LED_3);
 				flag=0;
-				break;
-				case 1 :
+			}
+			else if (u8LedCounter == 1)
+			{
 				Led_TurnOn(LED_1);  //red
 				Led_TurnOff(LED_2);
 				Led_TurnOff(LED_3);
 				flag=0;
-				break;
-				case 2 :
+			}
+			else if (u8LedCounter == 2)
+			{
 				Led_TurnOn(LED_3);  //green
 				Led_TurnOff(LED_1);
 				Led_TurnOff(LED_2);
 				flag=0;
-				break;
-				case 3 :
+			}
+			else if	(u8LedCounter == 3)
+			{
 				Led_TurnOn(LED_2);  //blue
 				Led_TurnOff(LED_1);
 				Led_TurnOff(LED_3);
 				flag=0;
-				break;
-				case 4 :
+			}
+			else
+			{
 				Led_TurnOn(LED_1);  //allon
 				Led_TurnOn(LED_2);
 				Led_TurnOn(LED_3);
 				flag=0;
-				break;
+			}		
+		} 
+}	
 
-				
-			} 
-		}	
-}
 
 

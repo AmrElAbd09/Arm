@@ -12,7 +12,8 @@ uint16 u16OnPeriod =150 ,u16OffPeriod=350, u16SignalDuration=500 ;
 /**********************************************************************
  *  						LOCAL FUNCTIONS PROTOTYPES 
  *********************************************************************/
-void pwm_G (uint16 u16Frequency ,uint16 u16Duty ) ;
+ 
+void app_PwmParameters (uint16 u16Frequency ,uint16 u16Duty ) ;
 
 /**********************************************************************
  *  						FUNCTIONS IMPLEMENTATION
@@ -30,7 +31,7 @@ void app_start (void)
 	if (Button_GetState(BUTTON_1,PULL_UP )== BUTTON_PRESSED)
 	{	      
 	   u8StateFlag=SET_FLAG;
-			pwm_G (2,30);  
+			app_PwmParameters (2,30);  
 	}   	
   while(u8StateFlag==SET_FLAG)
 	{	
@@ -61,7 +62,7 @@ void app_start (void)
 				u8StateFlag = CLEAR_FLAG;
 				u8Stage = 1;
 			}
-			pwm_G (2,u8DutyPercentage);            
+			app_PwmParameters (2,u8DutyPercentage);            
 			u8PressFlag=CLEAR_FLAG;
 		}
 
@@ -69,7 +70,7 @@ void app_start (void)
 	  
 	}
 }
-void pwm_G (uint16 u16Frequency ,uint16 u16Duty ) 
+void app_PwmParameters (uint16 u16Frequency ,uint16 u16Duty ) 
 {
     u16SignalDuration=(1000/u16Frequency);                   //in ms   
 	  u16OnPeriod= (u16Duty * u16SignalDuration)/100 ; 

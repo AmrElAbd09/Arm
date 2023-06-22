@@ -30,12 +30,12 @@
 *              - Setup the internal resistor for i/p pin
 *              - Setup the output current in case of output pin
 *******************************************************************************/
-void Port_Init(const Port_configType* ConfigPtr)
+enu_ErrorReturn Port_Init(const Port_configType* ConfigPtr)
 {
 	/* Check that ConfigPtr is not pointing to NULL */
 	if (ConfigPtr == NULL_PTR)
 	{
-		return;
+		return Sys_NotOK;
 	}
 	
 	uint8 pin = 0;
@@ -169,7 +169,7 @@ void Port_Init(const Port_configType* ConfigPtr)
 		else
 		{
 			/* TODO: Report the error using Det_ReportError */
-			return;
+			return Sys_NotOK;
 		}
 		/* set Interrupt configuration */
      if(ConfigPtr->pinConfigType[pin].Interrupt == Port_IntDisable)

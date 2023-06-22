@@ -27,7 +27,7 @@ typedef Dio_ChannelType Led_LedChannelType;
 * Return value: void
 * Description: Function to initialize the connected channel using Port MCAL
 *******************************************************************************/
- void Led_Init(void);
+ enu_ErrorReturn Led_Init(void);
  
  /*******************************************************************************
 * Service Name: Led_TurnOn
@@ -40,7 +40,7 @@ typedef Dio_ChannelType Led_LedChannelType;
 * Return value: void
 * Description: Function to turn on the Led using Dio MCAL
 *******************************************************************************/
- void Led_TurnOn(Led_LedChannelType LedChannel);
+ enu_ErrorReturn Led_TurnOn(Led_LedChannelType LedChannel);
  
  /*******************************************************************************
 * Service Name: Led_TurnOff
@@ -53,7 +53,7 @@ typedef Dio_ChannelType Led_LedChannelType;
 * Return value: void
 * Description: Function to turn off the Led using Dio MCAL
 *******************************************************************************/
- void Led_TurnOff(Led_LedChannelType LedChannel);
+ enu_ErrorReturn Led_TurnOff(Led_LedChannelType LedChannel);
  
   /*******************************************************************************
 * Service Name: Led_Toggle
@@ -66,7 +66,7 @@ typedef Dio_ChannelType Led_LedChannelType;
 * Return value: void
 * Description: Function to toggle the Led using Dio MCAL
 *******************************************************************************/
-void Led_Toggle(Led_LedChannelType LedChannel);
+enu_ErrorReturn Led_Toggle(Led_LedChannelType LedChannel);
 
 /*******************************************************************************
 * Service Name: Led_RefreshOutput
@@ -79,7 +79,7 @@ void Led_Toggle(Led_LedChannelType LedChannel);
 * Return value: void
 * Description: Function to refresh the Led's state using Dio MCAL
 *******************************************************************************/
-void Led_RefreshOutput(Led_LedChannelType LedChannel);
+enu_ErrorReturn Led_RefreshOutput(Led_LedChannelType LedChannel);
  
  #endif /* LED_H_ */
  /**********************************************************************************************************************

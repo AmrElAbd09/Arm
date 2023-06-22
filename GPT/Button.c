@@ -20,7 +20,7 @@
 * Return value: void
 * Description: Function to initialize the connected channel using Port MCAL
 *******************************************************************************/
-void Button_Init(void)
+enu_ErrorReturn Button_Init(void)
 {
 	Port_Init(&Port_ConfigType);
 }

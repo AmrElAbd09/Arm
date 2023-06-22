@@ -29,7 +29,7 @@
 *              - Setup the internal resistor for i/p pin
 *              - Setup the output current in case of output pin
 *******************************************************************************/
-void Port_Init(const Port_configType* ConfigPtr);
+enu_ErrorReturn Port_Init(const Port_configType* ConfigPtr);
  
 #endif  /* PORT_H_ */
 

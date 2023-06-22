@@ -21,7 +21,7 @@
 * Return value: void
 * Description: Function to initialize the connected channel using Port MCAL
 *******************************************************************************/
-void Led_Init(void)
+enu_ErrorReturn Led_Init(void)
 {
 	Port_Init(&Port_ConfigType);
 }
@@ -37,7 +37,7 @@ void Led_Init(void)
 * Return value: void
 * Description: Function to turn on the Led using Dio MCAL
 *******************************************************************************/
-void Led_TurnOn(Led_LedChannelType LedChannel)
+enu_ErrorReturn Led_TurnOn(Led_LedChannelType LedChannel)
 {
 	Dio_WriteChannel(LedChannel, DIO_LEVEL_HIGH);
 }
@@ -53,7 +53,7 @@ void Led_TurnOn(Led_LedChannelType LedChannel)
 * Return value: void
 * Description: Function to turn off the Led using Dio MCAL
 *******************************************************************************/
-void Led_TurnOff(Led_LedChannelType LedChannel)
+enu_ErrorReturn Led_TurnOff(Led_LedChannelType LedChannel)
 {
 	Dio_WriteChannel(LedChannel, DIO_LEVEL_LOW);
 }
@@ -69,7 +69,7 @@ void Led_TurnOff(Led_LedChannelType LedChannel)
 * Return value: void
 * Description: Function to toggle the Led using Dio MCAL
 *******************************************************************************/
-void Led_Toggle(Led_LedChannelType LedChannel)
+enu_ErrorReturn Led_Toggle(Led_LedChannelType LedChannel)
 {
 	Dio_FlipChannel(LedChannel);
 }
@@ -85,7 +85,7 @@ void Led_Toggle(Led_LedChannelType LedChannel)
 * Return value: void
 * Description: Function to refresh the Led's state using Dio MCAL
 *******************************************************************************/
-void Led_RefreshOutput(Led_LedChannelType LedChannel)
+enu_ErrorReturn Led_RefreshOutput(Led_LedChannelType LedChannel)
 {
 	/* Read the current state */
     Dio_LevelType state = Dio_ReadChannel(LedChannel);

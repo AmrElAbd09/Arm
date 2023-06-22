@@ -39,6 +39,12 @@
  *********************************************************************************************************************/
 
 typedef uint8 Std_ReturnType;
+typedef enum 
+{
+	Sys_ok,
+	Sys_NotOK
+}enu_ErrorReturn;
+
 #define E_OK          0u
 #define E_NOT_OK      1u
 

@@ -35,7 +35,7 @@ static volatile uint8 flag = 0;
 * Return value: void
 * Description: Function to initialize and start blinking service
 *******************************************************************************/
-void Blink_Start(Service_TimerChannelType TimerChannle, Service_DeviceChannel DeviceChannel, uint16 Time, uint16 HighPeriod, uint16 LowPeriod)
+enu_ErrorReturn Blink_Start(Service_TimerChannelType TimerChannle, Service_DeviceChannel DeviceChannel, uint16 Time, uint16 HighPeriod, uint16 LowPeriod)
 {
 	/* Led Initialization */
 	Dio_WriteChannel(DeviceChannel, DIO_LEVEL_HIGH);
@@ -98,7 +98,7 @@ void Blink_Start(Service_TimerChannelType TimerChannle, Service_DeviceChannel De
 * Return value: void
 * Description: Function to stop blinking
 *******************************************************************************/
-void Blink_Stop(Service_TimerChannelType TimerChannle,Service_DeviceChannel DeviceChannel)
+enu_ErrorReturn Blink_Stop(Service_TimerChannelType TimerChannle,Service_DeviceChannel DeviceChannel)
 {
 	/* Stop the assosiated */
 	Gpt_StopTimer(timerChannle);
@@ -112,7 +112,7 @@ void Blink_Stop(Service_TimerChannelType TimerChannle,Service_DeviceChannel Devi
  *********************************************************************************************************************/
 
 
-void blink_init (Service_TimerChannelType TimerChannle, Service_DeviceChannel DeviceChannel)
+enu_ErrorReturn blink_init (Service_TimerChannelType TimerChannle, Service_DeviceChannel DeviceChannel)
 {
 		/* Led Initialization */
 	Dio_WriteChannel(DeviceChannel, DIO_LEVEL_LOW);
@@ -128,7 +128,7 @@ void blink_init (Service_TimerChannelType TimerChannle, Service_DeviceChannel De
 	
 }
 
-void Blink_Start2(Service_TimerChannelType TimerChannle, uint16 Time, uint16 HighPeriod, uint16 LowPeriod)
+enu_ErrorReturn Blink_Start2(Service_TimerChannelType TimerChannle, uint16 Time, uint16 HighPeriod, uint16 LowPeriod)
 {
 
 	

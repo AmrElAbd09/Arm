@@ -28,7 +28,7 @@
 *              - Set the operation mode of GPT to ONESHOT or CONTINOUS Mode
 *              - Start all the enabled GPT Predefined timers at value = 0
 *******************************************************************************/
-void Gpt_Init(const Gpt_ChannelConfigType* ConfigPtr)
+enu_ErrorReturn Gpt_Init(const Gpt_ChannelConfigType* ConfigPtr)
 {
 	if (ConfigPtr->isEnabled == DISABLED)
 		return;
@@ -104,7 +104,7 @@ void Gpt_Init(const Gpt_ChannelConfigType* ConfigPtr)
 			break;
 		default:
 			/* [TODO] Report an error, then return */
-			return;
+			return Sys_NotOK;
 	}
 	
 	/* Enable Interrupt for the dedicated channel from IntCtrl Module */
@@ -157,7 +157,7 @@ void Gpt_Init(const Gpt_ChannelConfigType* ConfigPtr)
 * Return value: None
 * Description: Function to disable the notification when the dedicated timer hits the target
 *******************************************************************************/
-void Gpt_DisableNotification(Gpt_ChannelType ChannelId)
+enu_ErrorReturn Gpt_DisableNotification(Gpt_ChannelType ChannelId)
 {
 	const Gpt_ChannelConfigType* ConfigPtr = &(Gpt_Config.channels[ChannelId]);
 	
@@ -217,7 +217,7 @@ void Gpt_DisableNotification(Gpt_ChannelType ChannelId)
 			break;
 		default:
 			/* [TODO] Report an error, then return */
-			return;
+			return Sys_NotOK;
 	}
 	
 	/* Disable Timeout interrupt */
@@ -238,7 +238,7 @@ void Gpt_DisableNotification(Gpt_ChannelType ChannelId)
 * Return value: None
 * Description: Function to enable the notification when the dedicated timer hits the target
 *******************************************************************************/
-void Gpt_EnableNotification(Gpt_ChannelType ChannelId)
+enu_ErrorReturn Gpt_EnableNotification(Gpt_ChannelType ChannelId)
 {
 	const Gpt_ChannelConfigType* ConfigPtr = &(Gpt_Config.channels[ChannelId]);
 	
@@ -298,7 +298,7 @@ void Gpt_EnableNotification(Gpt_ChannelType ChannelId)
 			break;
 		default:
 			/* [TODO] Report an error, then return */
-			return;
+			return Sys_NotOK;
 	}
 	
 	/* Enable Timeout interrupt */
@@ -319,7 +319,7 @@ void Gpt_EnableNotification(Gpt_ChannelType ChannelId)
 * Return value: None
 * Description: Function to make the dedicated timer start counting
 *******************************************************************************/
-void Gpt_StartTimer(Gpt_ChannelType ChannelId, Gpt_ValueType Value)
+enu_ErrorReturn Gpt_StartTimer(Gpt_ChannelType ChannelId, Gpt_ValueType Value)
 {
 	const Gpt_ChannelConfigType* ConfigPtr = &(Gpt_Config.channels[ChannelId]);
 	
@@ -379,7 +379,7 @@ void Gpt_StartTimer(Gpt_ChannelType ChannelId, Gpt_ValueType Value)
 			break;
 		default:
 			/* [TODO] Report an error, then return */
-			return;
+			return Sys_NotOK;
 	}
 	
 	Value = Value * F_CPU;		/* value = value x 16 */
@@ -429,7 +429,7 @@ void Gpt_StartTimer(Gpt_ChannelType ChannelId, Gpt_ValueType Value)
 * Return value: None
 * Description: Function to make the dedicated timer stop counting
 *******************************************************************************/
-void Gpt_StopTimer(Gpt_ChannelType ChannelId)
+enu_ErrorReturn Gpt_StopTimer(Gpt_ChannelType ChannelId)
 {
 	const Gpt_ChannelConfigType* ConfigPtr = &(Gpt_Config.channels[ChannelId]);
 	
@@ -477,7 +477,7 @@ void Gpt_StopTimer(Gpt_ChannelType ChannelId)
 			break;
 		default:
 			/* [TODO] Report an error, then return */
-			return;
+			return Sys_NotOK;
 	}
 	
 	/* Clear Timer enable bit in GPTM control register */

@@ -35,7 +35,7 @@ Dio_LevelType Dio_ReadChannel(Dio_ChannelType ChannelId);
 * Return value: None
 * Description: Function for DIO write Channel API
 *******************************************************************************/
-void Dio_WriteChannel(Dio_ChannelType ChannelId, Dio_LevelType Level);
+enu_ErrorReturn Dio_WriteChannel(Dio_ChannelType ChannelId, Dio_LevelType Level);
 
 /*******************************************************************************
 * Service Name: Dio_FlipChannel
@@ -74,7 +74,7 @@ Dio_PortLevelType Dio_ReadPort(Dio_PortType PortId);
 * Return value: None
 * Description: Function for DIO write Port API
 *******************************************************************************/
-void Dio_WritePort(Dio_PortType PortId, Dio_PortLevelType Level);
+enu_ErrorReturn Dio_WritePort(Dio_PortType PortId, Dio_PortLevelType Level);
  
 #endif  /* DIO_H_ */
 /**********************************************************************************************************************

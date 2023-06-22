@@ -25,7 +25,7 @@
 * Return value: void
 * Description: Function to initialize and start blinking service
 *******************************************************************************/
-void Blink_Start(Service_TimerChannelType TimerChannle, Service_DeviceChannel DeviceChannel, uint16 Time, uint16 HighPeriod, uint16 LowPeriod);
+enu_ErrorReturn Blink_Start(Service_TimerChannelType TimerChannle, Service_DeviceChannel DeviceChannel, uint16 Time, uint16 HighPeriod, uint16 LowPeriod);
  
 /*******************************************************************************
 * Service Name: Blink_Stop
@@ -38,9 +38,9 @@ void Blink_Start(Service_TimerChannelType TimerChannle, Service_DeviceChannel De
 * Return value: void
 * Description: Function to stop blinking
 *******************************************************************************/
-void Blink_Stop(Service_TimerChannelType TimerChannle,Service_DeviceChannel DeviceChannel);
- void blink_init (Service_TimerChannelType TimerChannle, Service_DeviceChannel DeviceChannel);
- void Blink_Start2(Service_TimerChannelType TimerChannle, uint16 Time, uint16 HighPeriod, uint16 LowPeriod);
+enu_ErrorReturn Blink_Stop(Service_TimerChannelType TimerChannle,Service_DeviceChannel DeviceChannel);
+ enu_ErrorReturn blink_init (Service_TimerChannelType TimerChannle, Service_DeviceChannel DeviceChannel);
+ enu_ErrorReturn Blink_Start2(Service_TimerChannelType TimerChannle, uint16 Time, uint16 HighPeriod, uint16 LowPeriod);
 #endif /* LED_H_ */
 /**********************************************************************************************************************
 *  END OF FILE: Led.h

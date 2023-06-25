@@ -7,13 +7,13 @@
  *  						GLOBAL VARIABLES
  *********************************************************************/
  
-uint16 u16OnPeriod ,u16OffPeriod, u16SignalDuration ;
+uint16 g_u16OnPeriod ,g_u16OffPeriod, g_u16SignalDuration ;
 
 /**********************************************************************
  *  						LOCAL FUNCTIONS PROTOTYPES 
  *********************************************************************/
  
-void app_PwmParameters (uint16 u16Frequency ,uint16 u16Duty ) ;
+void app_PwmParameters (uint16 a_u16Frequency ,uint16 a_u16Duty ) ;
 
 /**********************************************************************
  *  						FUNCTIONS IMPLEMENTATION
@@ -35,7 +35,7 @@ void app_start (void)
 	}   	
   while(u8StateFlag==SET_FLAG)
 	{	
-		Blink_Start2(BLINKING_GPTM, u16SignalDuration , u16OnPeriod, u16OffPeriod);	
+		Blink_Start2(BLINKING_GPTM, g_u16SignalDuration , g_u16OnPeriod, g_u16OffPeriod);	
 	
 		if (Button_GetState(BUTTON_1,PULL_UP )== BUTTON_PRESSED)
 		{	      
@@ -70,11 +70,11 @@ void app_start (void)
 	  
 	}
 }
-void app_PwmParameters (uint16 u16Frequency ,uint16 u16Duty ) 
+void app_PwmParameters (uint16 a_u16Frequency ,uint16 a_u16Duty ) 
 {
-    u16SignalDuration=(SIGNAL_CONV/u16Frequency);                   //in ms   
-	  u16OnPeriod= (u16Duty * u16SignalDuration)/PERCENT ; 
-    u16OffPeriod= u16SignalDuration-u16OnPeriod;
+    g_u16SignalDuration=(SIGNAL_CONV/a_u16Frequency);                   //in ms   
+	  g_u16OnPeriod= (a_u16Duty * g_u16SignalDuration)/PERCENT ; 
+    g_u16OffPeriod= g_u16SignalDuration-g_u16OnPeriod;
 
 } 
 void app_init(void)

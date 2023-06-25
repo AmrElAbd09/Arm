@@ -7,13 +7,13 @@
  *  						GLOBAL VARIABLES
  *********************************************************************/
  
-uint16 u16OnPeriod =150 ,u16OffPeriod=350, u16SignalDuration=500 ;
+uint16 g_u16OnPeriod ,g_u16OffPeriod, g_u16SignalDuration ;
 
 /**********************************************************************
  *  						LOCAL FUNCTIONS PROTOTYPES 
  *********************************************************************/
  
-void app_PwmParameters (uint16 u16Frequency ,uint16 u16Duty ) ;
+void app_PwmParameters (uint16 a_u16Frequency ,uint16 a_u16Duty ) ;
 
 /**********************************************************************
  *  						FUNCTIONS IMPLEMENTATION
@@ -23,7 +23,7 @@ void app_PwmParameters (uint16 u16Frequency ,uint16 u16Duty ) ;
 void app_start (void)
 {
 		
- uint8 u8DutyPercentage = 30;
+ uint8 u8DutyPercentage = FIRST_BLINKING_MODE;
  uint8 u8StateFlag = CLEAR_FLAG;
  uint8 u8Stage = SET_FLAG;
  uint8 u8PressFlag = CLEAR_FLAG;
@@ -31,11 +31,11 @@ void app_start (void)
 	if (Button_GetState(BUTTON_1,PULL_UP )== BUTTON_PRESSED)
 	{	      
 	   u8StateFlag=SET_FLAG;
-			app_PwmParameters (2,30);  
+			app_PwmParameters (FREQUENCY_CHOICE,FIRST_BLINKING_MODE);  
 	}   	
   while(u8StateFlag==SET_FLAG)
 	{	
-		Blink_Start2(BLINKING_GPTM, u16SignalDuration , u16OnPeriod, u16OffPeriod);	
+		Blink_Start2(BLINKING_GPTM, g_u16SignalDuration , g_u16OnPeriod, g_u16OffPeriod);	
 	
 		if (Button_GetState(BUTTON_1,PULL_UP )== BUTTON_PRESSED)
 		{	      
@@ -46,23 +46,23 @@ void app_start (void)
 			u8Stage++;  
 			if (u8Stage == FIRST_STAGE) 
 			{
-				u8DutyPercentage = 30;
+				u8DutyPercentage = FIRST_BLINKING_MODE;
 			} 
 			else if (u8Stage == SECOND_STAGE) 
 			{
-				u8DutyPercentage = 60;
+				u8DutyPercentage = SECOND_BLINKING_MODE;
 			} 
 			else if (u8Stage == THIRD_STAGE) 
 			{
-				u8DutyPercentage = 90;
+				u8DutyPercentage = THIRD_BLINKING_MODE;
 			} 
 			else 
 			{
 				Blink_Stop(BLINKING_GPTM, LED_3);
 				u8StateFlag = CLEAR_FLAG;
-				u8Stage = 1;
+				u8Stage = FIRST_STAGE;
 			}
-			app_PwmParameters (2,u8DutyPercentage);            
+			app_PwmParameters (FREQUENCY_CHOICE,u8DutyPercentage);            
 			u8PressFlag=CLEAR_FLAG;
 		}
 
@@ -70,11 +70,11 @@ void app_start (void)
 	  
 	}
 }
-void app_PwmParameters (uint16 u16Frequency ,uint16 u16Duty ) 
+void app_PwmParameters (uint16 a_u16Frequency ,uint16 a_u16Duty ) 
 {
-    u16SignalDuration=(1000/u16Frequency);                   //in ms   
-	  u16OnPeriod= (u16Duty * u16SignalDuration)/100 ; 
-    u16OffPeriod= u16SignalDuration-u16OnPeriod;
+    g_u16SignalDuration=(SIGNAL_CONV/a_u16Frequency);                   //in ms   
+	  g_u16OnPeriod= (a_u16Duty * g_u16SignalDuration)/PERCENT ; 
+    g_u16OffPeriod= g_u16SignalDuration-g_u16OnPeriod;
 
 } 
 void app_init(void)

@@ -15,6 +15,10 @@
 typedef Dio_ChannelType Button_ButtonChannelType;
 typedef Port_PinInternalAttachType Button_ButtonAttachType;
 
+#define 	BUTTON_1		DIO_CONFIG_SWITCH1_CHANNEL_ID
+#define 	BUTTON_2		DIO_CONFIG_SWITCH2_CHANNEL_ID
+
+
 typedef enum
 {
 	BUTTON_RELEASED = 0,

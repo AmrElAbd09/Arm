@@ -11,6 +11,7 @@
  *  						GLOBAL MACROS
  *********************************************************************/
 #define SIGNAL_DURATION 	(200)
+#define PERCENT				(100)
 /**********************************************************************
  *  						GLOBAL VARIABLES
  *********************************************************************/
@@ -47,7 +48,7 @@ enu_ErrorReturn Pwm_Init (Service_TimerChannelType TimerChannle, Service_DeviceC
 
 enu_ErrorReturn Pwm_Start( uint8 a_u8Duty)
 { 
-		g_u16OnPeriod= (a_u8Duty * g_u16SignalDuration)/100 ; 
+		g_u16OnPeriod= (a_u8Duty * g_u16SignalDuration)/PERCENT ; 
     g_u16OffPeriod= g_u16SignalDuration - g_u16OnPeriod;
 	Dio_WriteChannel(g_DeviceChannel,DIO_LEVEL_LOW);
   	Gpt_StartTimer(g_TimerChannle, MSECONDS(g_u16OffPeriod));

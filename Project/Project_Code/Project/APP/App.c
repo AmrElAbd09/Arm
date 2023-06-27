@@ -34,7 +34,6 @@ void App_ButtonInterrupt (void)
 	Led_TurnOff(LED_3);
 	g_u8StartFlag = CLEAR_FLAG;
 	 Pwm_Stop();
-	/* Motors stop */
 }
 
 void App_init(void)
@@ -62,7 +61,7 @@ void App_CarReadyStage (void)
 	
 	Service_TimerStart(SERVICE_GPTM, READY_STAGE_TIME);
 	
-  Pwm_Stop();	
+	Pwm_Stop();	
 	MOTOR_Stop(); 
 	
 	
@@ -85,7 +84,7 @@ void App_CarStopStage (void)
 	
 	Service_TimerStart(SERVICE_GPTM, STOP_TIME);
 	
-  Pwm_Stop();	
+	Pwm_Stop();	
 	MOTOR_Stop();
 
 

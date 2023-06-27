@@ -13,26 +13,8 @@
 /**********************************************************************************************************************
 *   						GLOBAL CONSTANT MACROS
 *********************************************************************************************************************/
-#define 	LED_1			DIO_CONFIG_LED1_CHANNEL_ID
-#define 	LED_2			DIO_CONFIG_LED2_CHANNEL_ID
-#define 	LED_3			DIO_CONFIG_LED3_CHANNEL_ID
-#define 	LED_4			DIO_CONFIG_LED4_CHANNEL_ID
-
-#define 	BUTTON_1		DIO_CONFIG_SWITCH1_CHANNEL_ID
-#define 	BUTTON_2		DIO_CONFIG_SWITCH2_CHANNEL_ID
-
-#define 	MOTOR1_D1A			DIO_CONFIG_MOTOR1_D1A_CHANNEL_ID  
-#define 	MOTOR1_D1B			DIO_CONFIG_MOTOR1_D1B_CHANNEL_ID
-#define 	MOTOR2_D2A			DIO_CONFIG_MOTOR2_D2A_CHANNEL_ID
-#define 	MOTOR2_D2B			DIO_CONFIG_MOTOR2_D2B_CHANNEL_ID
-
-#define 	MOTOR1_EN		   	DIO_CONFIG_MOTOR1_EN_CHANNEL_ID  
-#define 	MOTOR2_EN			DIO_CONFIG_MOTOR2_EN_CHANNEL_ID
-
-
-#define		BLINKING_GPTM		TIMER0_16BIT
 #define 	SERVICE_GPTM		TIMER0_16BIT
-#define		PWM_GPTM				TIMER1_16BIT
+#define		PWM_GPTM			TIMER1_16BIT
 
 #define LONG_SIDE_TIME	(3000)
 #define LONG_SIDE_PWM	(50)
@@ -44,7 +26,7 @@
 #define ROTATING_PWM	(20)
  
 #define READY_STAGE_TIME (1000)
-#define STOP_TIME (500)
+#define STOP_TIME 		(500)
  
  
  #define READY_STAGE		(0)

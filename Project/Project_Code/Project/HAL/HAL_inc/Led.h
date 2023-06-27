@@ -12,6 +12,11 @@
 *  GLOBAL DATA PROTOTYPES
 *********************************************************************************************************************/
 typedef Dio_ChannelType Led_LedChannelType;
+
+#define 	LED_1			DIO_CONFIG_LED1_CHANNEL_ID
+#define 	LED_2			DIO_CONFIG_LED2_CHANNEL_ID
+#define 	LED_3			DIO_CONFIG_LED3_CHANNEL_ID
+#define 	LED_4			DIO_CONFIG_LED4_CHANNEL_ID
  
  /**********************************************************************************************************************
  *  GLOBAL FUNCTIONS PROTOTYPES

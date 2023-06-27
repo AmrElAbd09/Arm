@@ -42,8 +42,7 @@ void App_init(void)
 	Led_Init();	
   Button_Init();
 	Service_TimerInit(SERVICE_GPTM, App_SequenceChange);
-	Port_InterruptEnable ();
-	Port_InterruptSetCallback(App_ButtonInterrupt);
+	Button_IntSetCallback(App_ButtonInterrupt);
 	Pwm_Init (PWM_GPTM, LED_4);
 }
 

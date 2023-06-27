@@ -27,85 +27,85 @@
 *              - Set the operation mode of GPT to ONESHOT or CONTINOUS Mode
 *              - Start all the enabled GPT Predefined timers at value = 0
 *******************************************************************************/
-enu_ErrorReturn Gpt_Init(const Gpt_ChannelConfigType* ConfigPtr);
+enu_ErrorReturn Gpt_Init(const str_GptChannelConfigType* ConfigPtr);
 
 /*******************************************************************************
 * Service Name: Gpt_DisableNotification
 * Service ID[hex]: 0x01
 * Sync/Async: Synchronous
 * Reentrancy: Reentrant
-* Parameters (in): ChannelId - Pointer to Gpt_ChannelType data
+* Parameters (in): ChannelId - Pointer to enu_GptChannelType data
 * Parameters (inout): None
 * Parameters (out): None
 * Return value: None
 * Description: Function to disable the notification when the dedicated timer hits the target
 *******************************************************************************/
-enu_ErrorReturn Gpt_DisableNotification(Gpt_ChannelType ChannelId);
+enu_ErrorReturn Gpt_DisableNotification(enu_GptChannelType ChannelId);
 
 /*******************************************************************************
 * Service Name: Gpt_EnableNotification
 * Service ID[hex]: 0x02
 * Sync/Async: Synchronous
 * Reentrancy: Reentrant
-* Parameters (in): ChannelId - Pointer to Gpt_ChannelType data
+* Parameters (in): ChannelId - Pointer to enu_GptChannelType data
 * Parameters (inout): None
 * Parameters (out): None
 * Return value: None
 * Description: Function to enable the notification when the dedicated timer hits the target
 *******************************************************************************/
-enu_ErrorReturn Gpt_EnableNotification(Gpt_ChannelType ChannelId);
+enu_ErrorReturn Gpt_EnableNotification(enu_GptChannelType ChannelId);
 
 /*******************************************************************************
 * Service Name: Gpt_StartTimer
 * Service ID[hex]: 0x03
 * Sync/Async: Synchronous
 * Reentrancy: Reentrant
-* Parameters (in): ChannelId - Pointer to Gpt_ChannelType data, Value - the timer value in microseconds
+* Parameters (in): ChannelId - Pointer to enu_GptChannelType data, Value - the timer value in microseconds
 * Parameters (inout): None
 * Parameters (out): None
 * Return value: None
 * Description: Function to make the dedicated timer start counting
 *******************************************************************************/
-enu_ErrorReturn Gpt_StartTimer(Gpt_ChannelType ChannelId, Gpt_ValueType Value);
+enu_ErrorReturn Gpt_StartTimer(enu_GptChannelType ChannelId, Gpt_ValueType Value);
 
 /*******************************************************************************
 * Service Name: Gpt_StopTimer
 * Service ID[hex]: 0x04
 * Sync/Async: Synchronous
 * Reentrancy: Reentrant
-* Parameters (in): ChannelId - Pointer to Gpt_ChannelType data
+* Parameters (in): ChannelId - Pointer to enu_GptChannelType data
 * Parameters (inout): None
 * Parameters (out): None
 * Return value: None
 * Description: Function to make the dedicated timer stop counting
 *******************************************************************************/
-enu_ErrorReturn Gpt_StopTimer(Gpt_ChannelType ChannelId);
+enu_ErrorReturn Gpt_StopTimer(enu_GptChannelType ChannelId);
 
 /*******************************************************************************
 * Service Name: Gpt_GetTimeElapsed
 * Service ID[hex]: 0x05
 * Sync/Async: Synchronous
 * Reentrancy: Reentrant
-* Parameters (in): ChannelId - Pointer to Gpt_ChannelType data
+* Parameters (in): ChannelId - Pointer to enu_GptChannelType data
 * Parameters (inout): None
 * Parameters (out): None
 * Return value: Gpt_ValueType
 * Description: Function to get the counted time until the call's moment
 *******************************************************************************/
-Gpt_ValueType Gpt_GetTimeElapsed(Gpt_ChannelType ChannelId);
+Gpt_ValueType Gpt_GetTimeElapsed(enu_GptChannelType ChannelId);
 
 /*******************************************************************************
 * Service Name: Gpt_GetTimeRemaining
 * Service ID[hex]: 0x06
 * Sync/Async: Synchronous
 * Reentrancy: Reentrant
-* Parameters (in): ChannelId - Pointer to Gpt_ChannelType data
+* Parameters (in): ChannelId - Pointer to enu_GptChannelType data
 * Parameters (inout): None
 * Parameters (out): None
 * Return value: Gpt_ValueType
 * Description: Function to get the remaining time to hit the target from the calling's moment
 *******************************************************************************/
-Gpt_ValueType Gpt_GetTimeRemaining(Gpt_ChannelType ChannelId);
+Gpt_ValueType Gpt_GetTimeRemaining(enu_GptChannelType ChannelId);
 
 /*******************************************************************************
 * Service Name: Gpt_GetPredefTimerValue

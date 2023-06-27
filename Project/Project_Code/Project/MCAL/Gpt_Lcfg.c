@@ -31,7 +31,7 @@ void Gpt_Notification_11(void);
  *********************************************************************************************************************/
 int Timer0_Counter = 0;
 
-Gpt_ConfigType Gpt_Config = 
+str_GptConfigType str_GptConfig = 
 {
 	TIMER0_16BIT, DISABLED,  UP, 16000000, GPT_CHANNEL_MODE_CONTINOUS, Gpt_Notification_0, 0,
 	TIMER1_16BIT, DISABLED, UP, 16000000, GPT_CHANNEL_MODE_CONTINOUS, Gpt_Notification_1, 0,

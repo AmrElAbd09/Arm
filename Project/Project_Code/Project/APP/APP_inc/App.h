@@ -5,10 +5,8 @@
  /**********************************************************************************************************************
  * 							INCLUDES
  *********************************************************************************************************************/
-#include "Std_Types.h"
 #include "Led.h"
 #include "Button.h"
-#include "Blink.h" 
 #include "motor.h"
 #include "Service.h"
 #include "Pwm.h"
@@ -29,7 +27,7 @@
 #define 	MOTOR2_D2B			DIO_CONFIG_MOTOR2_D2B_CHANNEL_ID
 
 #define 	MOTOR1_EN		   	DIO_CONFIG_MOTOR1_EN_CHANNEL_ID  
-#define 	MOTOR2_EN			  DIO_CONFIG_MOTOR2_EN_CHANNEL_ID
+#define 	MOTOR2_EN			DIO_CONFIG_MOTOR2_EN_CHANNEL_ID
 
 
 #define		BLINKING_GPTM		TIMER0_16BIT
@@ -51,12 +49,12 @@
  
  #define READY_STAGE		(0)
  #define FIRST_STAGE 		(1)
- #define SECOND_STAGE 	(2)
+ #define SECOND_STAGE 		(2)
  #define THIRD_STAGE 		(3)
- #define FOURTH_STAGE 	(4)
+ #define FOURTH_STAGE 		(4)
  #define FIFTH_STAGE 		(5)
  #define SIXTH_STAGE 		(6)
- #define SEVENTH_STAGE	(7)
+ #define SEVENTH_STAGE		(7)
  #define LAST_STAGE			(8)
  
 /**********************************************************************************************************************

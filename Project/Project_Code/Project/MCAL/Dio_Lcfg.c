@@ -9,7 +9,7 @@
 /**********************************************************************************************************************
  *  GLOBAL DATA
  *********************************************************************************************************************/
-const Dio_ConfigType configList =
+const str_DioConfigType configList =
 {
 	DIO_CONFIG_LED1_PORT, DIO_CONFIG_LED1_CHANNEL,			/* LED 1 @ PF1 */
 	DIO_CONFIG_LED2_PORT, DIO_CONFIG_LED2_CHANNEL,			/* LED 2 @ PF2 */
@@ -27,8 +27,8 @@ const Dio_ConfigType configList =
 
  DIO_CONFIG_MOTOR1_EN_PORT,DIO_CONFIG_MOTOR1_EN_CHANNEL,                  	   
 // DIO_CONFIG_MOTOR2_EN_PORT ,DIO_CONFIG_MOTOR2_EN_CHANNEL,                 	      
+
 };
-    
 /**********************************************************************************************************************
  *  END OF FILE: Port_Lcfg.c
  *********************************************************************************************************************/

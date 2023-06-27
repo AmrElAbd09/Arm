@@ -3,7 +3,6 @@
  /**********************************************************************************************************************
  *  INCLUDES
  *********************************************************************************************************************/
-#include "Std_Types.h"
 #include "Button.h"
 
 /**********************************************************************************************************************
@@ -23,6 +22,7 @@
 enu_ErrorReturn Button_Init(void)
 {
 	Port_Init(&Port_ConfigType);
+	return Sys_ok;
 }
  
 /*******************************************************************************
@@ -34,25 +34,25 @@ enu_ErrorReturn Button_Init(void)
 * 				   ButtonAttach  - Identification for the connection type (PULL_UP or PULL_DOWN)
 * Parameters (inout): None
 * Parameters (out): None
-* Return value: Button_State
+* Return value: enu_ButtonState
 * Description: Function to get the state of the Button using Dio MCAL
 *******************************************************************************/
-Button_State Button_GetState(Button_ButtonChannelType ButtonChannel, Button_ButtonAttachType ButtonAttach)
+enu_ButtonState Button_GetState(Button_ButtonChannelType a_ButtonChannel, Button_ButtonAttachType a_ButtonAttach)
 {
 	Dio_LevelType testLevel = DIO_LEVEL_LOW;
-	Button_State state= BUTTON_RELEASED;
+	enu_ButtonState state= BUTTON_RELEASED;
 	
 	
-	if (ButtonAttach == PULL_UP)
+	if (a_ButtonAttach == PULL_UP)
 		testLevel = DIO_LEVEL_LOW;
-	else if (ButtonAttach == PULL_DOWN)
+	else if (a_ButtonAttach == PULL_DOWN)
 		testLevel = DIO_LEVEL_HIGH;
 	
-	if (Dio_ReadChannel(ButtonChannel) == testLevel)
+	if (Dio_ReadChannel(a_ButtonChannel) == testLevel)
 	{
       state=BUTTON_PRESSED;
 		
-		while (Dio_ReadChannel(ButtonChannel) == testLevel);
+		while (Dio_ReadChannel(a_ButtonChannel) == testLevel);
 		
 	}
 		return state;

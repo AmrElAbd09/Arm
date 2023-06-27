@@ -19,7 +19,7 @@ typedef enum
 {
 	BUTTON_RELEASED = 0,
 	BUTTON_PRESSED = 1
-} Button_State;
+} enu_ButtonState;
 
 /**********************************************************************************************************************
 *  GLOBAL FUNCTIONS PROTOTYPES
@@ -46,10 +46,10 @@ enu_ErrorReturn Button_Init(void);
 * 				   ButtonAttach  - Identification for the connection type (PULL_UP or PULL_DOWN)
 * Parameters (inout): None
 * Parameters (out): None
-* Return value: Button_State
+* Return value: enu_ButtonState
 * Description: Function to get the state of the Button using Dio MCAL
 *******************************************************************************/
-Button_State Button_GetState(Button_ButtonChannelType ButtonChannel, Button_ButtonAttachType ButtonAttach);
+enu_ButtonState Button_GetState(Button_ButtonChannelType a_ButtonChannel, Button_ButtonAttachType a_ButtonAttach);
 
 
 

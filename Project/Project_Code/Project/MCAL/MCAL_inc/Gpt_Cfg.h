@@ -20,7 +20,7 @@
  *  GLOBAL DATA TYPES AND STRUCTURES
  *********************************************************************************************************************/
 extern int Timer0_Counter;
-extern Gpt_ConfigType Gpt_Config;
+extern str_GptConfigType str_GptConfig;
 #endif  /* GPT_CFG_H_ */
 
 /**********************************************************************************************************************

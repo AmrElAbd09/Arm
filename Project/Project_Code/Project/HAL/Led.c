@@ -3,9 +3,8 @@
  /**********************************************************************************************************************
  *  INCLUDES
  *********************************************************************************************************************/
-#include "Std_Types.h"
 #include "Led.h"
-#include "Port.h"
+
 
 /**********************************************************************************************************************
  *  GLOBAL FUNCTIONS
@@ -24,6 +23,7 @@
 enu_ErrorReturn Led_Init(void)
 {
 	Port_Init(&Port_ConfigType);
+	return Sys_ok;
 }
  
 /*******************************************************************************
@@ -40,6 +40,7 @@ enu_ErrorReturn Led_Init(void)
 enu_ErrorReturn Led_TurnOn(Led_LedChannelType LedChannel)
 {
 	Dio_WriteChannel(LedChannel, DIO_LEVEL_HIGH);
+	return Sys_ok;
 }
  
 /*******************************************************************************
@@ -56,6 +57,7 @@ enu_ErrorReturn Led_TurnOn(Led_LedChannelType LedChannel)
 enu_ErrorReturn Led_TurnOff(Led_LedChannelType LedChannel)
 {
 	Dio_WriteChannel(LedChannel, DIO_LEVEL_LOW);
+	return Sys_ok;
 }
 
 /*******************************************************************************
@@ -72,6 +74,7 @@ enu_ErrorReturn Led_TurnOff(Led_LedChannelType LedChannel)
 enu_ErrorReturn Led_Toggle(Led_LedChannelType LedChannel)
 {
 	Dio_FlipChannel(LedChannel);
+	return Sys_ok;
 }
 
 /*******************************************************************************
@@ -88,10 +91,11 @@ enu_ErrorReturn Led_Toggle(Led_LedChannelType LedChannel)
 enu_ErrorReturn Led_RefreshOutput(Led_LedChannelType LedChannel)
 {
 	/* Read the current state */
-    Dio_LevelType state = Dio_ReadChannel(LedChannel);
+    enu_DioLevelType state = Dio_ReadChannel(LedChannel);
 	
 	/* Re-write the same state */
     Dio_WriteChannel(LedChannel, state);
+	return Sys_ok;
 }
  /**********************************************************************************************************************
  *  END OF FILE: Led.c

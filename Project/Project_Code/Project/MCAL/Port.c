@@ -3,20 +3,18 @@
 /**********************************************************************************************************************
  *  INCLUDES
  *********************************************************************************************************************/
-#include "TM4C123.h" 
 #include "Std_Types.h"
 #include "Port.h"
 #include "Port_regs.h"
 #include "Macros.h"
+#include "Mcu_Hw.h"
 
 /**********************************************************************************************************************
  *  GLOBAL FUNCTIONS
  *********************************************************************************************************************/
  
-  static  void(*IntPtrf)(void);
-	
 /*******************************************************************************
-* Service Name: Port_Init
+* Service Name: PortInit
 * Service ID[hex]: 0x00
 * Sync/Async: Synchronous
 * Reentrancy: Reentrant
@@ -32,94 +30,41 @@
 *              - Setup the internal resistor for i/p pin
 *              - Setup the output current in case of output pin
 *******************************************************************************/
-void Port_Init(const Port_configType* ConfigPtr)
+enu_ErrorReturn Port_Init(const Port_configType* ConfigPtr)
 {
 	/* Check that ConfigPtr is not pointing to NULL */
 	if (ConfigPtr == NULL_PTR)
 	{
-		/* TODO: Report the error using Det_ReportError */
-		return;
+		return Sys_NotOK;
 	}
-	
-	volatile uint32* Portptr = NULL_PTR; /* Used to traverse on all ports */
 	
 	uint8 pin = 0;
 	for (pin = 0; pin < TOTAL_PORT_NUMBER_OF_PINS; pin++)
 	{
+		Port_PortType PortNum = ConfigPtr->pinConfigType[pin].portType;
+		Port_PinType PinNum = ConfigPtr->pinConfigType[pin].pinType;
+		
 		/* To not configure all the channels by the default, otherwise it is requested */
 		if (ConfigPtr->pinConfigType[pin].isEnabled == CHANNEL_DISABLED)
 			continue;
 		
 		/* Enable the clock for the dedicated port */
-		switch (ConfigPtr->pinConfigType[pin].portType)
-		{
-			case PORTA:
-				Portptr = (volatile uint32*)GPIO_PORTA_BASE_ADDRESS;
-				SYSCTL_RCGCGPIO.BF.GPIOA_ = 1;
-				break;
-			case PORTB:
-				Portptr = (volatile uint32*)GPIO_PORTB_BASE_ADDRESS;
-				SYSCTL_RCGCGPIO.BF.GPIOB_ = 1;
-				break;
-			case PORTC:
-				Portptr = (volatile uint32*)GPIO_PORTC_BASE_ADDRESS;
-				SYSCTL_RCGCGPIO.BF.GPIOC_ = 1;
-				break;
-			case PORTD:
-				Portptr = (volatile uint32*)GPIO_PORTD_BASE_ADDRESS;
-				SYSCTL_RCGCGPIO.BF.GPIOD_ = 1;
-				break;
-			case PORTE:
-				Portptr = (volatile uint32*)GPIO_PORTE_BASE_ADDRESS;
-				SYSCTL_RCGCGPIO.BF.GPIOE_ = 1;
-				break;
-			case PORTF:
-				Portptr = (volatile uint32*)GPIO_PORTF_BASE_ADDRESS;
-				SYSCTL_RCGCGPIO.BF.GPIOF_ = 1;
-				break;
-		}
-	
-		/* Special manipulation, in case of PD7, PF0 */
-		if ( \
-			((ConfigPtr->pinConfigType[pin].portType == PORTD) && (ConfigPtr->pinConfigType[pin].pinType == PIN7)) \
-			|| ((ConfigPtr->pinConfigType[pin].portType == PORTF) && (ConfigPtr->pinConfigType[pin].pinType == PIN0)) \
-		)
-		{
-			/* Unlock the GPIOCR register */
-			*(volatile uint32*)((volatile uint8*)Portptr + GPIO_GPIOLOCK_OFFSET) = 0x4C4F434B;
-			
-			/* Configure GPIOCR bits to allow changes on the dedicated pin */
-			SET_BIT(*(volatile uint32*)((volatile uint8*)Portptr + GPIO_GPIOCR_OFFSET), ConfigPtr->pinConfigType[pin].pinType);
-		}
-		/* Special manipulation, in case of PC0 to PC3 (JTAG/SWD) */
-		else if (((ConfigPtr->pinConfigType[pin].portType == PORTC) && (ConfigPtr->pinConfigType[pin].pinType < PIN4)))
-		{
-			/* [WARNING]
-			 * Do nothing!! Because any changing of PC0->PC3 configurations will disable JTAG/SWD
-			 * So, we will not be able to flash or debug the code anymore!
-			 */
-			 continue;
-		}
-		else
-		{
-			/* Do Nothing!! */
-			/* All the other pins don't require any unlockig or committing any registers */
-		}
+		SET_BIT(RCGCGPIO, PortNum);
 		
 		switch (ConfigPtr->pinConfigType[pin].pinModeType)
 		{
 			case DIO_MODE:
 				/* Clear the corresponding bit to the dedicated pin in GPIOAMSEL */
-				CLEAR_BIT(*(volatile uint32*)((volatile uint8*)Portptr + GPIO_GPIOAMSEL_OFFSET), ConfigPtr->pinConfigType[pin].pinType);
+				CLEAR_BIT(GPIOAMSEL(PortNum), PinNum);
 				
 				/* Clear the corresponding bit to the dedicated pin in GPIOAFSEL */
-				CLEAR_BIT(*(volatile uint32*)((volatile uint8*)Portptr + GPIO_GPIOAFSEL_OFFSET), ConfigPtr->pinConfigType[pin].pinType);
+				CLEAR_BIT(GPIOAFSEL(PortNum), PinNum);
 				
 				/* Clear the PMCx bits for the dedicated pin */
-				*(volatile uint32*)((volatile uint8*)Portptr + GPIO_GPIOPCTL_OFFSET) &= ~(0x0000000F << (ConfigPtr->pinConfigType[pin].pinType * 4));
+				GPIOPCTL(PortNum) &= ~(0x0000000F << (PinNum * 4));
 				
 				/* Set the corresponding bit of the dedicated pin in GPIODEN register to enable the digital functionality to this pin */
-				SET_BIT(*(volatile uint32*)((volatile uint8*)Portptr + GPIO_GPIODEN_OFFSET), ConfigPtr->pinConfigType[pin].pinType);
+				SET_BIT(GPIODEN(PortNum), PinNum);
 				break;
 			case ICU_MODE:
 				/* [TODO] Setup the configurations for ICU_MODE */
@@ -129,105 +74,127 @@ void Port_Init(const Port_configType* ConfigPtr)
 				break;
 			default: /* Default is DIO_MODE */
 				/* Clear the corresponding bit to the dedicated pin in GPIOAMSEL */
-				CLEAR_BIT(*(volatile uint32*)((volatile uint8*)Portptr + GPIO_GPIOAMSEL_OFFSET), ConfigPtr->pinConfigType[pin].pinType);
+				CLEAR_BIT(GPIOAMSEL(PortNum), PinNum);
 				
 				/* Clear the corresponding bit to the dedicated pin in GPIOAFSEL */
-				CLEAR_BIT(*(volatile uint32*)((volatile uint8*)Portptr + GPIO_GPIOAFSEL_OFFSET), ConfigPtr->pinConfigType[pin].pinType);
+				CLEAR_BIT(GPIOAFSEL(PortNum), PinNum);
 				
 				/* Clear the PMCx bits for the dedicated pin */
-				*(volatile uint32*)((volatile uint8*)Portptr + GPIO_GPIOPCTL_OFFSET) &= ~(0x0000000F << (ConfigPtr->pinConfigType[pin].pinType * 4));
+				GPIOPCTL(PortNum) &= ~(0x0000000F << (PinNum * 4));
 				
 				/* Set the corresponding bit of the dedicated pin in GPIODEN register to enable the digital functionality to this pin */
-				SET_BIT(*(volatile uint32*)((volatile uint8*)Portptr + GPIO_GPIODEN_OFFSET), ConfigPtr->pinConfigType[pin].pinType);
+				SET_BIT(GPIODEN(PortNum), PinNum);
 				break;
 		}
 		
 		if (ConfigPtr->pinConfigType[pin].pinDirectionType == OUTPUT)
 		{
 			/* Set the corresponding bit of the dedicated pin in GPIODIR */
-			SET_BIT(*(volatile uint32*)((volatile uint8*)Portptr + GPIO_GPIODIR_OFFSET), ConfigPtr->pinConfigType[pin].pinType);
+			SET_BIT(GPIODIR(PortNum), PinNum);
 			
 			switch (ConfigPtr->pinConfigType[pin].pinOutputCurrentType)
 			{
 				case DRIVE_2mA:
-					SET_BIT(*(volatile uint32*)((volatile uint8*)Portptr + GPIO_GPIODR2R_OFFSET), ConfigPtr->pinConfigType[pin].pinType);
-					CLEAR_BIT(*(volatile uint32*)((volatile uint8*)Portptr + GPIO_GPIODR4R_OFFSET), ConfigPtr->pinConfigType[pin].pinType);
-					CLEAR_BIT(*(volatile uint32*)((volatile uint8*)Portptr + GPIO_GPIODR8R_OFFSET), ConfigPtr->pinConfigType[pin].pinType);
+					SET_BIT(GPIODR2R(PortNum), PinNum);
+					CLEAR_BIT(GPIODR4R(PortNum), PinNum);
+					CLEAR_BIT(GPIODR8R(PortNum), PinNum);
 					break;
 				case DRIVE_4mA:
-					CLEAR_BIT(*(volatile uint32*)((volatile uint8*)Portptr + GPIO_GPIODR2R_OFFSET), ConfigPtr->pinConfigType[pin].pinType);
-					SET_BIT(*(volatile uint32*)((volatile uint8*)Portptr + GPIO_GPIODR4R_OFFSET), ConfigPtr->pinConfigType[pin].pinType);
-					CLEAR_BIT(*(volatile uint32*)((volatile uint8*)Portptr + GPIO_GPIODR8R_OFFSET), ConfigPtr->pinConfigType[pin].pinType);
+					CLEAR_BIT(GPIODR2R(PortNum), PinNum);
+					SET_BIT(GPIODR4R(PortNum), PinNum);
+					CLEAR_BIT(GPIODR8R(PortNum), PinNum);
 					break;
 				case DRIVE_8mA:
-					CLEAR_BIT(*(volatile uint32*)((volatile uint8*)Portptr + GPIO_GPIODR2R_OFFSET), ConfigPtr->pinConfigType[pin].pinType);
-					CLEAR_BIT(*(volatile uint32*)((volatile uint8*)Portptr + GPIO_GPIODR4R_OFFSET), ConfigPtr->pinConfigType[pin].pinType);
-					SET_BIT(*(volatile uint32*)((volatile uint8*)Portptr + GPIO_GPIODR8R_OFFSET), ConfigPtr->pinConfigType[pin].pinType);
+					CLEAR_BIT(GPIODR2R(PortNum), PinNum);
+					CLEAR_BIT(GPIODR4R(PortNum), PinNum);
+					SET_BIT(GPIODR8R(PortNum), PinNum);
 					break;
 				default:
-					SET_BIT(*(volatile uint32*)((volatile uint8*)Portptr + GPIO_GPIODR2R_OFFSET), ConfigPtr->pinConfigType[pin].pinType);
-					CLEAR_BIT(*(volatile uint32*)((volatile uint8*)Portptr + GPIO_GPIODR4R_OFFSET), ConfigPtr->pinConfigType[pin].pinType);
-					CLEAR_BIT(*(volatile uint32*)((volatile uint8*)Portptr + GPIO_GPIODR8R_OFFSET), ConfigPtr->pinConfigType[pin].pinType);
+					SET_BIT(GPIODR2R(PortNum), PinNum);
+					CLEAR_BIT(GPIODR4R(PortNum), PinNum);
+					CLEAR_BIT(GPIODR8R(PortNum), PinNum);
 					break;
 			}
 			
 			if (ConfigPtr->pinConfigType[pin].pinLevelType == PIN_LEVEL_HIGH)
 			{
 				/* Set the corresponding bit of the dedicated pin in GPIODATA */
-				SET_BIT(*(volatile uint32*)((volatile uint8*)Portptr + GPIO_GPIODATA_OFFSET), ConfigPtr->pinConfigType[pin].pinType);
+				SET_BIT(GPIODATA(PortNum), PinNum);
 			}
 			else
 			{
 				/* Clear the corresponding bit of the dedicated pin in GPIODATA */
-				CLEAR_BIT(*(volatile uint32*)((volatile uint8*)Portptr + GPIO_GPIODATA_OFFSET), ConfigPtr->pinConfigType[pin].pinType);
+				CLEAR_BIT(GPIODATA(PortNum), PinNum);
 			}
 		}
 		else if (ConfigPtr->pinConfigType[pin].pinDirectionType == INPUT)
 		{
 			/* Set the corresponding bit of the dedicated pin in GPIODIR */
-			CLEAR_BIT(*(volatile uint32*)((volatile uint8*)Portptr + GPIO_GPIODIR_OFFSET), ConfigPtr->pinConfigType[pin].pinType);
+			CLEAR_BIT(GPIODIR(PortNum), PinNum);
 		
 			switch (ConfigPtr->pinConfigType[pin].pinInternalAttachType)
 			{
 				case PULL_UP:
-					SET_BIT(*(volatile uint32*)((volatile uint8*)Portptr + GPIO_GPIOPUR_OFFSET), ConfigPtr->pinConfigType[pin].pinType);
-					CLEAR_BIT(*(volatile uint32*)((volatile uint8*)Portptr + GPIO_GPIOPDR_OFFSET), ConfigPtr->pinConfigType[pin].pinType);
-					CLEAR_BIT(*(volatile uint32*)((volatile uint8*)Portptr + GPIO_GPIOODR_OFFSET), ConfigPtr->pinConfigType[pin].pinType);
-					CLEAR_BIT(*(volatile uint32*)((volatile uint8*)Portptr + GPIO_GPIOSLR_OFFSET), ConfigPtr->pinConfigType[pin].pinType);
+					SET_BIT(GPIOPUR(PortNum), PinNum);
+					CLEAR_BIT(GPIOPDR(PortNum), PinNum);
+					CLEAR_BIT(GPIOODR(PortNum), PinNum);
+					CLEAR_BIT(GPIOSLR(PortNum), PinNum);
 					break;
 				case PULL_DOWN:
-					CLEAR_BIT(*(volatile uint32*)((volatile uint8*)Portptr + GPIO_GPIOPUR_OFFSET), ConfigPtr->pinConfigType[pin].pinType);
-					SET_BIT(*(volatile uint32*)((volatile uint8*)Portptr + GPIO_GPIOPDR_OFFSET), ConfigPtr->pinConfigType[pin].pinType);
-					CLEAR_BIT(*(volatile uint32*)((volatile uint8*)Portptr + GPIO_GPIOODR_OFFSET), ConfigPtr->pinConfigType[pin].pinType);
-					CLEAR_BIT(*(volatile uint32*)((volatile uint8*)Portptr + GPIO_GPIOSLR_OFFSET), ConfigPtr->pinConfigType[pin].pinType);
+					CLEAR_BIT(GPIOPUR(PortNum), PinNum);
+					SET_BIT(GPIOPDR(PortNum), PinNum);
+					CLEAR_BIT(GPIOODR(PortNum), PinNum);
+					CLEAR_BIT(GPIOSLR(PortNum), PinNum);
 					break;
 				case OPEN_DRAIN:
-					CLEAR_BIT(*(volatile uint32*)((volatile uint8*)Portptr + GPIO_GPIOPUR_OFFSET), ConfigPtr->pinConfigType[pin].pinType);
-					CLEAR_BIT(*(volatile uint32*)((volatile uint8*)Portptr + GPIO_GPIOPDR_OFFSET), ConfigPtr->pinConfigType[pin].pinType);
-					SET_BIT(*(volatile uint32*)((volatile uint8*)Portptr + GPIO_GPIOODR_OFFSET), ConfigPtr->pinConfigType[pin].pinType);
-					CLEAR_BIT(*(volatile uint32*)((volatile uint8*)Portptr + GPIO_GPIOSLR_OFFSET), ConfigPtr->pinConfigType[pin].pinType);
+					CLEAR_BIT(GPIOPUR(PortNum), PinNum);
+					CLEAR_BIT(GPIOPDR(PortNum), PinNum);
+					SET_BIT(GPIOODR(PortNum), PinNum);
+					CLEAR_BIT(GPIOSLR(PortNum), PinNum);
 					break;
 				case SLEW_RATE:
-					CLEAR_BIT(*(volatile uint32*)((volatile uint8*)Portptr + GPIO_GPIOPUR_OFFSET), ConfigPtr->pinConfigType[pin].pinType);
-					CLEAR_BIT(*(volatile uint32*)((volatile uint8*)Portptr + GPIO_GPIOPDR_OFFSET), ConfigPtr->pinConfigType[pin].pinType);
-					CLEAR_BIT(*(volatile uint32*)((volatile uint8*)Portptr + GPIO_GPIOODR_OFFSET), ConfigPtr->pinConfigType[pin].pinType);
-					SET_BIT(*(volatile uint32*)((volatile uint8*)Portptr + GPIO_GPIOSLR_OFFSET), ConfigPtr->pinConfigType[pin].pinType);
+					CLEAR_BIT(GPIOPUR(PortNum), PinNum);
+					CLEAR_BIT(GPIOPDR(PortNum), PinNum);
+					CLEAR_BIT(GPIOODR(PortNum), PinNum);
+					SET_BIT(GPIOSLR(PortNum), PinNum);
 					break;
 				default: /* Default is PULL_UP */
-					SET_BIT(*(volatile uint32*)((volatile uint8*)Portptr + GPIO_GPIOPUR_OFFSET), ConfigPtr->pinConfigType[pin].pinType);
-					CLEAR_BIT(*(volatile uint32*)((volatile uint8*)Portptr + GPIO_GPIOPDR_OFFSET), ConfigPtr->pinConfigType[pin].pinType);
-					CLEAR_BIT(*(volatile uint32*)((volatile uint8*)Portptr + GPIO_GPIOODR_OFFSET), ConfigPtr->pinConfigType[pin].pinType);
-					CLEAR_BIT(*(volatile uint32*)((volatile uint8*)Portptr + GPIO_GPIOSLR_OFFSET), ConfigPtr->pinConfigType[pin].pinType);
+					SET_BIT(GPIOPUR(PortNum), PinNum);
+					CLEAR_BIT(GPIOPDR(PortNum), PinNum);
+					CLEAR_BIT(GPIOODR(PortNum), PinNum);
+					CLEAR_BIT(GPIOSLR(PortNum), PinNum);
 					break;
 			}
 		}
 		else
 		{
 			/* TODO: Report the error using Det_ReportError */
-			return;
+			return Sys_NotOK;
 		}
+		/* set Interrupt configuration */
+     if(ConfigPtr->pinConfigType[pin].Interrupt == Port_IntDisable)
+     {  
+         			CLEAR_BIT(GPIOIM(PortNum), PinNum) ; 
+     }
+     else
+     {
+         SET_BIT(GPIOIM(PortNum), PinNum);
+		
+         if( ConfigPtr->pinConfigType[pin].Interrupt == Port_IntRisingEdge)
+         {
+           SET_BIT(GPIOIEV(PortNum), PinNum)  ;		
+         }
+         else if( ConfigPtr->pinConfigType[pin].Interrupt == Port_IntFallingEdge)
+         {
+             CLEAR_BIT(GPIOIEV(PortNum), PinNum)  ;
+         }
+         else if( ConfigPtr->pinConfigType[pin].Interrupt == Port_IntBothEdges)
+         {   
+						SET_BIT(GPIOIBE(PortNum), PinNum)  ;
+				 }
+     }
 	}
-} 
+}
 
 
 
@@ -256,7 +223,7 @@ enu_ErrorReturn Port_InterruptEnable (void)
 enu_ErrorReturn Port_InterruptSetCallback (void (*a_Ptrf)(void))
 {
 	
-	
+	Port_InterruptEnable();
 	
 	if (a_Ptrf != NULL_PTR)
 	{ 
@@ -273,13 +240,7 @@ enu_ErrorReturn Port_InterruptSetCallback (void (*a_Ptrf)(void))
 
 
 void GPIOF_Handler(void)
-{	
-//  if (GPIOF->MIS & 0x10) /* check if interrupt causes by PF4/SW1*/
-//    {   
-////      Led_TurnOff(LED_3);
-////			Led_TurnOn(LED_1);
-////      GPIOF->ICR |= 0x10; /* clear the interrupt flag */
-//     } 
+{	 
      if (GPIOF->MIS & 0x01) /* check if interrupt causes by PF0/SW2 */
     {   
 
@@ -287,7 +248,6 @@ void GPIOF_Handler(void)
      GPIOF->ICR |= 0x01; /* clear the interrupt flag */
     }
 } 
-
 /**********************************************************************************************************************
  *  END OF FILE: Port.c
  *********************************************************************************************************************/

@@ -31,38 +31,36 @@ typedef enum
 	TIMER3_32BIT = 9,
 	TIMER4_32BIT = 10,
 	TIMER5_32BIT = 11
-} Gpt_ChannelType;
+} enu_GptChannelType;
 
-/* enum for the half type */
-typedef IntCtrl_InterruptType Gpt_TimerInterruptType;
 
 /* enum for the size of the channel */
 typedef enum
 {
     FULL = 0x0,
 	HALF = 0x4
-} Gpt_ChannelSizeType;
+} enu_GptChannelSizeType;
 
 /* enum to specify the counting direction */
 typedef enum
 {
 	DOWN = 0x0,
 	UP   = 0x1
-} Gpt_DirectionType;
+} enu_GptDirectionType;
 
 /* Flag to know if i want to use this timer of not */
 typedef enum
 {
 	DISABLED = 0,
 	ENABLED  = 1
-} Gpt_EnableType;
+} enu_GptEnableType;
 
 /* The mode of operation for the timer */
 typedef enum
 {
 	GPT_MODE_NORMAL = 0,
 	GPT_MODE_SLEEP  = 1
-} Gpt_ModeType;
+} enu_GptModeType;
 
 /* Channel Tick Frequency in MHz */
 typedef uint64 Gpt_ChannelTickFrequencyType;
@@ -72,7 +70,7 @@ typedef enum
 {
 	GPT_CHANNEL_MODE_ONESHOT   = 0x1,
 	GPT_CHANNEL_MODE_CONTINOUS = 0x2
-} Gpt_ChannelModeType;
+} enu_GptChannelModeType;
 
 /* The value if the timers' counters (registers) */
 typedef uint64 Gpt_ValueType;
@@ -80,39 +78,37 @@ typedef uint64 Gpt_ValueType;
 /* A pointer to the callback function (Notification) */
 typedef void (*Gpt_NotificationType)(void);
 
-/* A priority for the interrupt attached to the channel's timer */
-typedef uint8 Gpt_NotificationPriority;
 
 /* GPT configuration set for each channel */
 /*
 typedef struct
 {
-	Gpt_ChannelType channelId;
-	Gpt_EnableType	enable;
-	Gpt_ChannelSizeType size;
+	enu_GptChannelType channelId;
+	enu_GptEnableType	enable;
+	enu_GptChannelSizeType size;
 	Gpt_TimerType half;
-	Gpt_DirectionType direction;
+	enu_GptDirectionType direction;
 	Gpt_ChannelTickFrequencyType frequency;
 	Gpt_ChannelTickValueType startingTickValue;
 	Gpt_ChannelTickValueType stopTickValue;
 	Gpt_ChannelTickValueType TickValueMax;
-	Gpt_ChannelModeType mode;
+	enu_GptChannelModeType mode;
 	Gpt_NotificationType notification;
 	Gpt_NotificationPriority priority;
-} Gpt_ChannelConfigType;
+} str_GptChannelConfigType;
 */
 
 typedef struct
 {
-	Gpt_ChannelType channelId;
-	Gpt_EnableType isEnabled;
-	Gpt_DirectionType direction;
+	enu_GptChannelType channelId;
+	enu_GptEnableType isEnabled;
+	enu_GptDirectionType direction;
 	Gpt_ChannelTickFrequencyType frequency;
 	// [TODO] Gpt_ChannelTickValueType TickValueMax;
-	Gpt_ChannelModeType mode;
+	enu_GptChannelModeType mode;
 	Gpt_NotificationType notification;
 	Gpt_NotificationPriority priority;
-} Gpt_ChannelConfigType;
+} str_GptChannelConfigType;
 
 /* A type for the predefined timers */
 typedef uint8 Gpt_PredefTimerType;
@@ -120,8 +116,8 @@ typedef uint8 Gpt_PredefTimerType;
 /* Gpt config structure for an array of 12 timers */
 typedef struct
 {
-	Gpt_ChannelConfigType channels[TOTAL_NUM_TIMERS];
-} Gpt_ConfigType;
+	str_GptChannelConfigType channels[TOTAL_NUM_TIMERS];
+} str_GptConfigType;
 
 #endif  /* GPT_TYPES_H_ */
 

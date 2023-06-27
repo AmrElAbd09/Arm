@@ -78,12 +78,12 @@
 typedef struct
 {
 	Dio_ChannelConfigType channels[NUM_CONFIGURED_CHANNELS];
-} Dio_ConfigType;
+} str_DioConfigType;
 
 /**********************************************************************************************************************
  *  GLOBAL DATA TYPES AND STRUCTURES
  *********************************************************************************************************************/
-extern const Dio_ConfigType configList;
+extern const str_DioConfigType configList;
 
 #endif  /* DIO_CFG_H_ */
 /**********************************************************************************************************************

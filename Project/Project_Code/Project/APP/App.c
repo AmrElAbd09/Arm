@@ -39,10 +39,10 @@ void App_ButtonInterrupt (void)
 void App_init(void)
 {
 	Led_Init();	
-  Button_Init();
+	Button_Init();
 	Service_TimerInit(SERVICE_GPTM, App_SequenceChange);
 	Button_IntSetCallback(App_ButtonInterrupt);
-	Pwm_Init (PWM_GPTM, LED_4);
+	Pwm_Init (PWM_GPTM, MOTOR_EN);
 }
 
 /*******************************************************************************************************************************************
